@@ -1,0 +1,35 @@
+version: '2.1'
+services:
+
+  db:
+    image: postgres:9.5
+    environment:
+    - POSTGRES_PASSWORD=root
+    - POSTGRES_USER=root
+    volumes:
+    - ./SCHEMA.sql:/SCHEMA.sql
+#    - db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "root", "-d", "root"]
+      interval: 5s
+      timeout: 10s
+      retries: 10
+    ports:
+    - 5432:5432
+    container_name: science-internationality-index-db
+
+  adminer:
+    image: adminer
+    ports:
+    - 5005:8080
+    container_name: science-internationality-index-adminer
+
+#  graphiql:
+#    image: npalm/graphiql
+#    ports:
+#    - 5006:4000
+#    environment:
+#      API_URL: http://127.0.0.1:5011/graphql
+#
+#volumes:
+#  db-data: {}

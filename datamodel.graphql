@@ -1,0 +1,38 @@
+type field {
+  country_code: ID! @unique
+  gdppc2017: Float!
+  incomelevel: String!
+  iso2code: String!
+  iso3code: String!
+  lendingtype: String!
+  pop2017: Integer!
+  region: String!
+  wb_name: String!
+  my_name: String!
+  totDocs: Integer!
+}
+ 
+type field {
+  field_code: ID! @unique
+  name: String! @unique
+  level: String! 
+  scopus_code: String! @unique
+  scopus_name: String!
+}
+ 
+type method{
+  method_code: ID! @unique
+  minmax: String!
+  short_name: String!
+  full_name:String!
+  short_desc: String!
+  long_desc: String!
+  formula: String!
+}
+
+type interindex{
+  country_code: country!
+  field_code:field!
+  period:Integer!
+  value:Float!
+}

@@ -5,10 +5,9 @@
 /*
 TESTING
  */
-#testDiv {
+#appCont {
     position: absolute;
     top:100px;
-    left:100px;
 }
 
 
@@ -33,6 +32,11 @@ body {
     width:700px;
     margin:auto;
     line-height: 1.6;
+}
+
+.chartcontainer {
+    position: relative;
+    margin:auto;
 }
 
 .ddlvisible {
@@ -299,7 +303,7 @@ h4 {
     box-sizing: border-box;
 }
 
-#thanks #title {
+#thankstitle {
     margin-bottom:3vh;
 }
 
@@ -393,3 +397,16 @@ h4 {
 }
 
 
+
+
+.column {
+    float: left;
+    width: 33.33%;
+}
+
+/* Clear floats after the columns */
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}

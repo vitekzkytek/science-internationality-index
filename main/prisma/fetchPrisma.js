@@ -51,6 +51,7 @@ const queryIndex = ` query GetIndex_CMF(
     },
     fields(where:$f) {
         id,
+        name,
         level,
         scopus_code,
         scopus_name
@@ -68,8 +69,8 @@ const queryIndex = ` query GetIndex_CMF(
     }`;
 
 exports.queryInterindex = function (queryBody) {
-        return fetch({
-            query:queryIndex,
+    return  fetch({
+        query: queryIndex,
         variables: {
             "c": {"id": queryBody['query[country_code]']},
             "m": {"id": queryBody['query[method_code]']},

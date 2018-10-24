@@ -1,3 +1,18 @@
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-119824152-3"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-119824152-3');
+</script>
+
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
 <link rel="stylesheet" type="text/css" href="stylesheets/page.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/chart.css" />
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" />
@@ -13,6 +28,8 @@
 <script src="javascripts/page.js" ></script>
 <script src="javascripts/data.js" ></script>
 
+<title>The Internationality Index?</title>
+
 <body onload="loadJS()">
 <div id="everything">
     <div id="intro" class="fix fullscreen fixactive">
@@ -27,10 +44,10 @@
             </div>
 
             <p style="line-height: .5">Think-tank IDEA of the Economic Institute of AS CR</p>
-            <p style="line-height: .5">Study č. XXX/2018</p>
-            <p style="line-height: .5">June 2018</p>
+            <p style="line-height: .5">Study no. XXX/2018</p>
+            <p style="line-height: .5">December 2018</p>
             <br />
-            <img src="img/down-arrow2.svg" onclick="MoveOn('oCemMluvime')" class='arrow' title="Posunujte kolečkem myši dolů"/>
+            <img src="img/down-arrow2.svg" onclick="MoveOn('context')" class='arrow' title="Posunujte kolečkem myši dolů"/>
 
         </div>
     </div>
@@ -39,156 +56,104 @@
         <a class="corner" href="https://idea.cerge-ei.cz/" target="_blank" style="left:10px;"><img src="img/IDEA2.png"/></a>
         <div class="content">
             <center>
-                <a id="moCemMluvime" onclick="MoveOn('oCemMluvime')">Kontext</a>
-                <a id="mapp" onclick="MoveOn('empt-app')">Interaktivní aplikace</a>
-                <a id="mLifeSocial" onclick="MoveOn('LifeSocial')">Zajímavé obory</a>
-                <a id="mUnivAv" onclick="MoveOn('avcr')">Různé instituce</a>
-                <a id="mConclusion" onclick="MoveOn('conclusion')">Závěrem</a>
+                <a id="mContext" onclick="MoveOn('context')">Context</a>
+                <a id="mapp" onclick="MoveOn('empt-app')">Interactive App</a>
+                <a id="mWorld" onclick="MoveOn('world')">World</a>
+                <a id="mRegion" onclick="MoveOn('region')">Regions</a>
+                <a id="mDisciplines" onclick="MoveOn('disciplines')">Disciplines</a>
             </center>
         </div>
         <a class="corner" href="http://av21.avcr.cz/" target="_blank" style="right: 10px;"><img src="img/justStrategyWhite.png" /></a>
 
     </div>
     <div id="menuempty"></div>
-    <div id="oCemMluvime" class="flow flowtext">
+    <div id="context" class="flow flowtext">
         <div class="content">
-            <h3>Světový a ostatní výzkum</h3>
-            <p>Hodnocení výzkumu je obtížné, ale nezbytné, protože bez zpětné vazby je snadné podlehnout sebeklamu. Nikdy nebude dokonalé, jen stěží se zavděčí všem, ale to neznamená, že nemůže prospět. </p>
-            <p>Starý vládní systém hodnocení, takzvaný <a class="modalLink" onclick="showModal('modKafemlejnek')">kafemlejnek</a>, způsobil v některých oborech velké škody. Nová <a class="modalLink" onclick="showModal('modMetodika2017')">Metodika 2017+</a> se však rozbíhá pomalu. Navíc jsou problémy, kterými se i nový systém hodnocení zabývá jen okrajově.</p>
-            <p>Následující interaktivní aplikace nabízí netradiční pohled na publikační profil výzkumných pracovišť. Nezabývá se citačním ohlasem, ale publikacemi v časopisech podezřelých z <a class="modalLink" onclick="showModal('modPredatori')">predátorských praktik</a> a v časopisech s výrazně <a class="modalLink" onclick="showModal('modMistni')">místní autorskou základnou</a>.</p>
-            <p>Poskytujeme další střípek do mozaiky toho, která pracoviště u nás dělají jaký výzkum. Pozice dané fakulty či ústavu by měla zajímat nejen manažery výzkumu a tvůrce politik, ale i jejich zaměstnance a potažmo studenty. </p>
-            <p>Navazujeme na <a class="modalLink" onclick="showModal('modPrevious')">předchozí IDEA studie</a> na tato témata.</p>
+            <h3>The International Research</h3>
+            <p>One of the most basic principles of research is its internationality dimension.
+                The pressure on originality forces researchers to compare their discoveries not only with their
+                local colleagues, but also with their peers across the globe. Incorporation of national research outputs into the international knowledge
+                flows is thus one of the most important goals of national research policies.</p>
+
+            <p>For many researchers this observation is obvious and natural. They publish their results in the international arena.
+            However, in other countries, and particularly in some disciplines, the research is still significantly bounded by local borders and ties.</p>
+
+            <p>In this study, we aim to </p>
+
+            <p>Of course, internationalization of research by no means guarantee </p>
         </div>
     </div>
     <div id="app" class="fix fullscreen">
-        <div class="chartcontainer">
+        <div class="content">
 
         </div>
     </div>
-    <div id="empt-app"class="fixempty fullscreen"></div>
-    <div id="dyk_wrap" class="fullscreen">
-        <div class="chartcontainer">
-            <div id="didyouknow" class="box helpbox">
-                <p>Body zobrazují jednotlivá <a class="modalLink" onclick="showModal('modPracoviste')">výzkumná pracoviště</a></p>
-                <p>Na osách jsou podíly článků v <a class="modalLink" onclick="showModal('modPredatori')">predátorských</a> a <a class="modalLink" onclick="showModal('modMistni')">místních</a> časopisech na všech článcích pracoviště (v %).</p>
-                <p>Součet obou podílů <a class="modalLink" onclick="showModal('modPrekryv')">nemůže přesáhnout 100 %</a>, takže všechny body jsou pod diagonálou. Zvýrazněny jsou i vrstevnice pro nižší součty.</p>
-                <p>Pracoviště blízko diagonály mají téměř všechny články v predátorských a místních časopisech.</p>
-                <p>Pracoviště v levém dolním rohu v takových časopisech články nemají.</p>
-            </div>
-        </div>
-    </div>
-    <div id="desc_wrap" class="fullscreen">
-        <div class="chartcontainer">
-            <div id="descbox" class="box detailbox">
-                <p><strong>Kliknutím</strong> na legendu <strong>zobrazíte či skryjete</strong> různé obory a typy pracovišť.</p>
-                <p>Pro podrobnosti <strong>klikněte</strong> na jednotlivý bod či <strong>vyhledejte</strong> konkrétní pracoviště podle názvu v roletkovém menu nad grafem.</p>
-                <p>Za vybrané pracoviště si <strong>stáhněte</strong> seznam článků v predátorských, místních i obou druzích časopisů</p>
-            </div>
-        </div>
-    </div>
-    <div id="res_wrap" class="fullscreen">
+    <div id="empt-app" class="fixempty fullscreen"></div>
+    <div id="lineChart_desc" class="fullscreen">
         <div class="content">
             <div id="resbox" class="box whitebox">
-                <h4>Celkový obrázek</h4>
-                <p>Publikování v predátorských časopisech se týká jen malého počtu pracovišť. Naopak publikování v místních časopisech je velmi rozšířené. Jen tři pracoviště mají větší podíl predátorských než místních článků.</p>
-                <p>Na první pohled jsou rovněž patrné velké rozdíly mezi obory.</p>
+                <h4>Describing line chart</h4>
             </div>
         </div>
     </div>
 
-    <div id="LifeSocial" class="flow flowtitle">
+    <div id="world" class="flow flowtitle">
         <div class="content">
-            <h3>Přírodní vs. společenské vědy</h3>
+            <h3>Internationality in the world</h3>
         </div>
     </div>
-    <div id="empt-lifesocial"class="fixempty fullscreen"></div>
+    <div class="fixempty fullscreen"></div>
     <div class="fullscreen">
         <div class="content">
             <div class="box whitebox">
-                <h4>Zásadní rozdíl</h4>
-                <p>Zvláště ve <span style="color:#99d594">společenských vědách</span> najdeme řadu pracovišť s vysokým podílem jak predátorských tak i místních publikací. Není v tomto oboru výjimkou, aby souhrnně do těchto dvou kategorií spadalo více jak 60 % či dokonce 80 % všech článků pracoviště.</p>
-                <p>Rozdíl oproti <span style="color:#d53e4f">přírodním vědám</span> je v obou kategoriích markantní. Přírodovědecká pracoviště jsou v drtivé většině soustředěna v levém dolním rohu. Jen několik jich vystoupalo na výrazně vyšší vrstevnice. </p>
-                <p>Nelze se divit, že přírodovědci problémy ve společenských vědách občas podceňují.</p>
+                <h4>The world average did not grow</h4>
             </div>
         </div>
     </div>
 
-    <div id="empt-lifesocial"class="fixempty fullscreen"></div>
-
-    <div id="LifeSocial2" class="flow flowtext">
+    <div id="region" class="flow flowtitle">
         <div class="content">
-            <h4>Proč zrovna společenské vědy?</h4>
-            <p>Problém predátorského publikování ve společenských vědách dokládá nejenom, že se doposud nedokázaly vzpamatovat z desítek let trvající devastace komunistickým režimem, ale i mimořádnou míru jejich pokřivení kafemlejnkem.</p>
-            <p>Rozsah publikování v místních časopisech tento obrázek dokresluje. Například v oborech ekonomie, finance, business a management, do kterých spadá většina vyčnívajících pracovišť, vychází stovky zahraničních indexovaných časopisů. Možností publikovat je dostatek.</p>
-            <p>Společenské vědy by si zasloužily zvláštní pozornost poskytovatelů financí na výzkumnou činnost. Jejich povznesení na úroveň běžnou ve vyspělých zemích bude vyžadovat daleko větší úsilí než v jiných oborech.</p>
-            <p class="tip">Tip: Klikáním na legendu vytvoříte vlastní srovnání vybraných oborů.</p>
-        </div>
-    </div>
-    <div id="empt-lifesocial2"class="fixempty fullscreen"></div>
-
-    <div id="avcr" class="flow flowtitle">
-        <div class="content">
-            <h3>Akademie věd</h3>
+            <h3>China witnessed massive internationalization of their research</h3>
         </div>
     </div>
     <div class="fixempty fullscreen"></div>
 
-    <div class="fullscreen">
+    <div class="flow flowtitle">
         <div class="content">
-            <div class="box whitebox">
-                <h4>Akademie věd ČR</h4>
-                <p>Na ústavech Akademie věd ČR se v predátorských časopisech publikuje jen ojediněle. Článků v místních časopisech je nejvíce v humanitních oborech, ve kterých je to pochopitelné. </p>
-            </div>
-        </div>
-    </div>
-    <div id="univs" class="flow flowtitle">
-        <div class="content">
-            <h3>Vysoké školy</h3>
+            <p>All indicators show remarkable success of research reform in China after 2000</p>
         </div>
     </div>
     <div class="fixempty fullscreen"></div>
 
-    <div class="fullscreen">
-        <div class="content">
-            <div class="box whitebox">
-                <h4>Vysoké školy</h4>
-                <p>Na vysokých školách je situace odlišná. Nejenže se na řadě fakult běžně publikuje v predátorských časopisech, ale souběžně jsou časté i místní časopisecké články.</p>
-                <p>Pokud pomineme humanitní vědy, nejčastěji vybočují fakulty se zaměřením na ekonomii, finance, business a management, veřejnou správu, informatiku, pedagogiku a zdravotnická studia.</p>
-                <p class="tip">Tip: Vyhledáním celé univerzity podle názvu v roletkovém menu nad grafem můžete najednou zvýraznit všechna její pracoviště.</p>
 
-            </div>
-        </div>
-    </div>
-    <div id="empt-univav"class="fixempty fullscreen"></div>
-    <div id="jakvysvetlit" class="flow flowtext">
+    <div class="flow flowtitle">
         <div class="content">
-            <h4>Čím takový rozdíl vysvětlit?</h4>
-            <p>Na řadě vysokých škol vyrostly výzkumné kapacity teprve nedávno. Problémy prohloubil kafemlejnek, který souběžně legitimizoval nahrazování kvality kvantitou. Na vysokých školách nezřídka zcela nahradil strategické řízení vědy. Někde chybí patřičné zvyklosti mezi výzkumníky i tlak na kvalitu zeshora.</p>
-            <p>Na Akademii věd ČR má solidní výzkum s mezinárodním přesahem dlouhou tradici. Kafemlejnkem se nikdy neřídili a zavedli vlastní metodiku hodnocení, která je založena na mezinárodním peer-review v odborných panelech. Predátorskému publikování takové prostředí nepřeje.</p>
-            <p>Metodika 2017+ má potenciál nežádoucí motivace minulého hodnocení zpřetrhat. Nicméně kafemlejnek nebude minulostí, dokud se podle něho na vysokých školách budou rozdělovat peníze, což bude ještě nejméně několik let. Navíc vůbec nelze vyloučit, že podobný způsob hodnocení bude v sektoru vysokých škol pokračovat i nadále.</p>
-            <p class="tip">Tip: Kliknutím na jednotlivý bod či vyhledáním konkrétního pracoviště  podle názvu v roletkovém menu se nejen zvýrazní jeho pozice na grafu, ale rovněž se v pravém dolním okně aktivuje možnost stáhnout si seznam jeho článků v predátorských a místních časopisech. </p>
+            <p>On the other hand Russia fails to publish their results in international journals in all fields and all methods. </p>
         </div>
     </div>
-    <div id="empt-lifesocial2"class="fixempty fullscreen"></div>
+    <div class="fixempty fullscreen"></div>
+
+    <div id="disciplines" class="flow flowtitle">
+        <div class="content">
+            <p>In some countries the internationalization varies across fields</p>
+        </div>
+    </div>
+    <div class="fixempty fullscreen"></div>
 
     <div id="conclusion" class="flow flowtext">
         <div class="content">
-            <h3>Pár slov závěrem</h3>
-            <p>Pokud by se měla někam zacílit pozornost, byla by to právě v našem srovnání vybočující vysokoškolská pracoviště, a to zejména v oboru společenských věd. Na těchto fakultách je záhodno přehodnotit způsob řízení výzkumu a hlavně myšlení o tom, jaký výzkum se má dělat.</p>
-            <p>Navíc v tomto srovnání nebereme v úvahu články ve východoevropských (chorvatských, litevských, polských či rumunských) časopisech. Na některých pracovištích jsou i takových článků spousty.</p>
-            <p>Možná se trochu zapomíná, že úroveň společenských věd a potažmo jejich výuky souvisí s kvalitou vládnutí, rozhodování a řízení v zemi. Špičkoví ekonomové, manažeři, politologové, učitelé, úředníci anebo právníci jsou pro další rozvoj české společnosti nepostradatelní. Pokud se chceme ještě více přiblížit vyspělým zemím, bez kvalitních společenských věd se neobejdeme.</p>
-            <p class="tip">Tip: Doporučujeme nad aplikací strávit delší čas a dopodrobna prozkoumat obory a pracoviště, které Vás zajímají.</p>
+            <h3>Conclusion</h3>
         </div>
     </div>
-    <div id="empt-conclusion"class="fixempty fullscreen"></div>
+    <div id="empt-conclusion" class="fixempty fullscreen"></div>
 
     <div id="thanks" class="flow">
         <div class="content">
-            <h1 id="title">Děkujeme za pozornost!</h1>
+            <h1 id="thankstitle">Thanks for attention!</h1>
 
             <a href="https://idea.cerge-ei.cz/" target="_blank"><img src="img/IDEA_greybcg.svg" class="logo"/></a>
             <a href="http://av21.avcr.cz/" target="_blank" ><img src="img/Logo_Strategie_V3m.svg" class="logo"/></a>
-            <h2 id="subtitle">Pokud se Vám to líbilo, nezapomeňte se o to podělit s ostatními!</h2>
+            <h2 >If you liked it, do not forget to share!</h2>
 
             <div id="shares">
                 <a id="fb"target="_blank" href=""><img src="img/fb.svg" /></a>
@@ -409,6 +374,5 @@
             </div>
         </div>
     </div>
-</div>
 </div>
 </body>

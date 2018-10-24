@@ -54,3 +54,19 @@ function queryddl_methods() {
     };
 
 }
+
+
+function retrieveInterindex(req) {
+    return {
+        url: "/",
+        data: {
+            id: 'queryInterindex',
+            query: {
+                country_code: req.countries,
+                field_code: req.fields,
+                method_code: req.methods
+            },
+            req: req
+        },
+    }
+}

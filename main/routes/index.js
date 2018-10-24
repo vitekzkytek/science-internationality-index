@@ -3,6 +3,7 @@ var router = express.Router();
 
 const fetcher = require('../prisma/fetchPrisma.js');
 
+
 /* POST home page. */
 router.post('/', function(req, res, next) {
     let queryFunction;
@@ -30,6 +31,7 @@ router.post('/', function(req, res, next) {
     let resp = queryFunction(req.body);
 //    res.send(resp)
     resp.then(result => {
+        // result['query'] = req;
         res.send(result)}
      ).catch(result => {
          res.send('Query failed! ' + result)

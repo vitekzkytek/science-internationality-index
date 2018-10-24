@@ -38,4 +38,3 @@ type Interindex @pgTable(name: "interindex"){
   period:Int!
   value:Float
 }
-    

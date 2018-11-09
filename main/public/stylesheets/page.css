@@ -343,6 +343,36 @@ h4 {
     background-color: rgb(0,0,0); /* Fallback color */
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
+
+.button {
+    cursor: pointer;
+    background-color: #DDD;
+    border: 2px solid #DDD;
+    color: white;
+    padding: 3px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    border-radius: 4px;
+    -webkit-transition-duration: 0.3s; /* Safari */
+    transition-duration: 0.3s;
+    width:100px;
+    position:relative;
+    left:10px;
+    text-align: center;
+    /* top:-28px; */
+}
+
+.buttonActive {
+    background-color: #BB133E;
+    border: 2px solid #BB133E;
+}
+.buttonActive:hover {
+    background-color: white;
+    color: #BB133E;
+}
+
 .close{
     float:right;
     position: relative;

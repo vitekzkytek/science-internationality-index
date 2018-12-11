@@ -1,15 +1,15 @@
 var lang = 'en';
 
-var sizes = {};
 
 var waypoints;
 
 
 function loadJS() {
+    sizes = setSizes();
 
     waypoints = waypointing();
 
-    generateApp('#app div.content');
+    generateApp('#app');
 
     //shareLinks();
     //TODO loading screen
@@ -22,6 +22,18 @@ function generateApp(selector) {
     generateControls(selector + ' #appCont');
 
     generateCharts(selector + ' #appCont');
+
+    //typesetSVGMath();
+
+}
+
+function typesetSVGMath() {
+    MathJax.Hub.Queue(
+        ["Typeset",MathJax.Hub,"genFooter"],
+        ["setRenderer",MathJax.Hub,"SVG"],
+        ["Typeset",MathJax.Hub,"svgLineChart"],
+        ["setRenderer",MathJax.Hub,"CommonHTML"]
+    );
 
 }
 
@@ -42,6 +54,11 @@ function waypointing() {
         $(target).append(element);
         $(element).css({top:'0px','box-shadow': '0px 0px 20px 4px #d1d4d3'})
     }
+
+    function updChart(selCountries,selFields,selMethods) {
+        $('#ddl_countries').val()
+    }
+
 
     // fixing menu and adding shadow
     waypoints = $('#menu').waypoint(function(direction) {
@@ -65,11 +82,11 @@ function waypointing() {
             }},offset:'17%'});
 
 
-    waypoints = $('#world').waypoint({handler:function(direction) {
+    waypoints = $('#west').waypoint({handler:function(direction) {
             if (direction === 'down') {
-                $('#mWorld').addClass('storyPast')
+                $('#mWest').addClass('storyPast')
             } else {
-                $('#mWorld').removeClass('storyPast')
+                $('#mWest').removeClass('storyPast')
             }},offset:'17%'});
 
 
@@ -80,50 +97,100 @@ function waypointing() {
             activatefix('#intro')
         }});
 
-    waypoints = $('#empt-app').waypoint({handler:function(direction) {
+    waypoints = $('#east').waypoint({handler:function(direction) {
             if (direction === 'down') {
-                $('#mapp').addClass('storyPast')
+                $('#mEast').addClass('storyPast')
             } else {
-                $('#mapp').removeClass('storyPast')
+                $('#mEast').removeClass('storyPast')
             }},offset:'17%'});
 
 
-    waypoints = $('#region').waypoint(function(direction) {
+    waypoints = $('#china').waypoint(function(direction) {
             if(direction === 'down') {
-                $('#mRegion').addClass('storyPast')
+                $('#mChina').addClass('storyPast')
             } else {
-                $('#mRegion').removeClass('storyPast')
+                $('#mChina').removeClass('storyPast')
             }
         },
         {offset:'17%'}
     );
 
-    waypoints = $('#disciplines').waypoint(function(direction) {
+    waypoints = $('#russia').waypoint(function(direction) {
             if(direction === 'down') {
-                $('#mDisciplines').addClass('storyPast')
+                $('#mRussia').addClass('storyPast')
             } else {
-                $('#mDisciplines').removeClass('storyPast')
+                $('#mRussia').removeClass('storyPast')
             }
         },
         {offset:'17%'}
     );
 
 
-    // waypoints = $('#LifeSocial').waypoint(function(direction) {
-    //         if(direction === 'down') {
-    //             data['#mainApp'].used.fields = ['Společenské vědy','Přírodní vědy']
-    //             data['#mainApp'].used.types = data['#mainApp'].default.types
-    //
-    //             Redraw('#mainApp',false,false)
-    //         } else {
-    //             data['#mainApp'].used.fields = data['#mainApp'].default.fields
-    //             data['#mainApp'].used.types = data['#mainApp'].default.types
-    //
-    //             Redraw('#mainApp',false,false)
-    //         }
-    //     },
-    //     {offset:'60%'}
-    // );
+    waypoints = $('#west').waypoint(function(direction) {
+            if(direction === 'down') {
+                switchMultiSelect('fields',false);
+                $('#ddl_countries select').val('_ADV').trigger('change',[false]);
+                $('#ddl_methods select').val('euclid').trigger('change',[false]);
+                $('#ddl_fields select').val(["All", "top_Health", "top_Life", "top_Physical", "top_Social"]).trigger('change',[true]);
+            } else {
+                switchMultiSelect('countries',false);
+                $('#ddl_countries select').val(['_ADV','_TRA']).trigger('change',[false]);
+                $('#ddl_fields select').val("All").trigger('change',[false]);
+                $('#ddl_methods select').val('euclid').trigger('change',[false]);
+
+                $('#ddl_countries select').trigger('change',[true]);
+            }
+        },
+        {offset:'60%'}
+    );
+    waypoints = $('#east').waypoint(function(direction) {
+            if(direction === 'down') {
+                switchMultiSelect('countries',false);
+                $('#ddl_countries select').val(["POL", "CZE", "ROU", "SVK"]).trigger('change',[false]);
+                $('#ddl_methods select').val('euclid').trigger('change',[false]);
+                $('#ddl_fields select').val("top_Social").trigger('change',[true]);
+            } else {
+                switchMultiSelect('fields',false);
+                $('#ddl_countries select').val('_ADV').trigger('change',[false]);
+                $('#ddl_methods select').val('euclid').trigger('change',[false]);
+                $('#ddl_fields select').val(["All", "top_Health", "top_Life", "top_Physical", "top_Social"]).trigger('change',[true]);
+            }
+        },
+        {offset:'60%'}
+    );
+
+    waypoints = $('#china').waypoint(function(direction) {
+            if(direction === 'down') {
+                switchMultiSelect('methods',false);
+                $('#ddl_countries select').val("CHN").trigger('change',[false]);
+                $('#ddl_methods select').val(["euclid", "instTOP3", "shareEnglish", "localShare", "weightGini"]).trigger('change',[false]);
+                $('#ddl_fields select').val("All").trigger('change',[true]);
+            } else {
+                switchMultiSelect('countries',false);
+                $('#ddl_countries select').val(["POL", "CZE", "ROU", "SVK"]).trigger('change',[false]);
+                $('#ddl_methods select').val('euclid').trigger('change',[false]);
+                $('#ddl_fields select').val("top_Social").trigger('change',[true]);
+            }
+        },
+        {offset:'60%'}
+    );
+
+    waypoints = $('#russia').waypoint(function(direction) {
+            if(direction === 'down') {
+                switchMultiSelect('methods',false);
+                $('#ddl_countries select').val("RUS").trigger('change',[false]);
+                $('#ddl_methods select').val(["euclid", "instTOP3", "shareEnglish", "localShare", "weightGini"]).trigger('change',[false]);
+                $('#ddl_fields select').val("All").trigger('change',[true]);
+            } else {
+                switchMultiSelect('methods',false);
+                $('#ddl_countries select').val("CHN").trigger('change',[false]);
+                $('#ddl_methods select').val(["euclid", "instTOP3", "shareEnglish", "localShare", "weightGini"]).trigger('change',[false]);
+                $('#ddl_fields select').val("All").trigger('change',[true]);
+            }
+        },
+        {offset:'60%'}
+    );
+
 
     waypoints = $('#conclusion').waypoint({handler:function(direction) {
             if (direction === 'down') {
@@ -155,15 +222,25 @@ function MoveOn(selector) {
     })
 };
 
+function showMethodModal(method) {
+    showModal('modMethods');
+    displayMethod(method);
+}
 
 function showModal(modal) {
     $('.modalBackground').fadeIn(200,function() {$('#' + modal).addClass('modalActive')});
-};
+}
 
 function hideModal() {
     $('.modalBackground').fadeOut(200,function() {});
     $('.modalActive').removeClass('modalActive')
-};
+}
+
+function hideAndShowModal(modal) {
+    hideModal();
+
+    showModal(modal);
+}
 
 window.onclick = function(event) {
     modal = document.getElementById('modalWrap')

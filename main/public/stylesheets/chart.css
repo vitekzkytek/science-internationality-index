@@ -9,9 +9,8 @@
 }
 
 #svg text {
-    font-size: calc(12px + .3vh);
+    /*font-size: calc(12px + .3vh);*/
 }
-
 
 #lines circle:hover {
     fill:none;
@@ -20,6 +19,13 @@
 #lines circle {
     cursor: pointer;
 }
+
+#LineChartTitle h4 {
+    text-align: center;
+    color: black;
+}
+
+
 
 div.tooltip {
     position: absolute;
@@ -38,7 +44,15 @@ div.tooltip {
 }
 
 
-.multiswitcher {
-    cursor:pointer;
-    text-decoration: underline;
+#svgLineChart text {
+    font-size: calc(.5vh + 10px);
+}
+
+#lineChartFooter {
+    font-size: calc(.5vh + 10px);
+}
+
+#lineChartTitle {
+    position:absolute;
+    left:50%;
 }

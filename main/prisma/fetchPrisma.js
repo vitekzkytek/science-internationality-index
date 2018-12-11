@@ -40,14 +40,13 @@ const queryIndex = ` query GetIndex_CMF(
     },
     countries(where: $c){
         id,
+        incomelevel,
         region,
-        wb_name,
         name,
-        gdppc2017,
-        iso2code
-        pop2017,
-        totdocs,
-        lendingtype
+        oecd,
+        eu,
+        imf2003
+        
     },
     fields(where:$f) {
         id,
@@ -62,8 +61,9 @@ const queryIndex = ` query GetIndex_CMF(
         name,
         full_name,
         short_desc,
-        long_desc,
-        formula
+        input,
+        formula,
+        source
     }
     
     }`;

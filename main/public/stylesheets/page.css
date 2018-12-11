@@ -6,8 +6,12 @@
 TESTING
  */
 #appCont {
-    position: absolute;
-    top:100px;
+    position: relative;
+    top:7vh;
+}
+
+#appCont > div {
+    margin:auto;
 }
 
 
@@ -75,6 +79,7 @@ h3{
 
 h4 {
     text-align: center;
+    color: #bb133e;
 }
 
 .footnote{
@@ -257,7 +262,7 @@ h4 {
 .whitebox {
     background-color:white;
     padding:30px 50px 30px 50px;
-    width:600px;
+    width:700px;
     font-size:calc(12px + .5vh); 
     box-sizing: border-box;
 }
@@ -429,14 +434,3 @@ h4 {
 
 
 
-.column {
-    float: left;
-    width: 33.33%;
-}
-
-/* Clear floats after the columns */
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-}

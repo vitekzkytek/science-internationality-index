@@ -1,8 +1,4 @@
-svgSize = {
-    width: '600',
-    height: '400',
-    margin:{top:20,right:20,bottom:20,left:40}
-};
+let sizes;
 
 responses = {};
 
@@ -12,11 +8,37 @@ var lc_x,lc_y,lc_line,lc_svg,lc_g,lc_legend,parseTime,lc_tooltip; //Line chart D
 var lc_color = d3.schemeCategory10;
 
 function generateCharts(selector) {
-    $(selector).append($('<div />', {id:'chartCont'}));
+    $(selector).append($('<div />', {id:'chartCont',style:`width:${sizes.chart.width}px;`}));
+    genTitle(selector + ' #chartCont');
     genLineChart(selector + ' #chartCont');
 }
 
+function setSizes() {
+    var totalWidth = Math.min(Math.max($(window).width() * 0.6,800),1000);
+    var totalHeight = (window.innerHeight * 0.95);
 
+    var footHeight = 100;
+    var headHeight = 140;
+
+    return {
+        foot: {
+            width:totalWidth,
+            height:footHeight
+        },
+        header:{
+            width: totalWidth,
+            height:headHeight
+        },
+        switchCompare: {
+            width:40,height:30
+        },
+        chart: {
+            width:totalWidth,
+            height: totalHeight - footHeight - headHeight,
+            margin:{top:20,right:20,bottom:30,left:40}
+        }
+    }
+}
 function genLineChart(selector) {
     $(selector).append($('<div />', {id:'LineChartCont'}));
     $('div.tooltip').remove();
@@ -30,21 +52,21 @@ function genLineChart(selector) {
     lc_svg = d3.select(selector + ' #LineChartCont')
         .append('svg')
         .attr('id','svgLineChart')
-        .attr('width',svgSize.width + 'px')
-        .attr('height',svgSize.height + 'px');
+        .attr('width',sizes.chart.width + 'px')
+        .attr('height',sizes.chart.height + 'px');
     lc_g = lc_svg.append("g")
-        .attr("transform", "translate(" + svgSize.margin.left + "," + svgSize.margin.top + ")");
+        .attr("transform", "translate(" + sizes.chart.margin.left + "," + sizes.chart.margin.top + ")");
 
-    var height = svgSize.height - svgSize.margin.top - svgSize.margin.bottom;
+    var height = sizes.chart.height - sizes.chart.margin.top - sizes.chart.margin.bottom;
 
-    var width = svgSize.width - svgSize.margin.left - svgSize.margin.right;
+    var width = sizes.chart.width - sizes.chart.margin.left - sizes.chart.margin.right;
 
     parseTime = d3.timeParse('%Y');
 
 
     lc_x = d3.scaleTime()
         .rangeRound([0,width])
-        .domain([parseTime(2000),parseTime(2018)]);
+        .domain([parseTime(2004),parseTime(2018)]);
 
     lc_y = d3.scaleLinear()
         .rangeRound([height,0])
@@ -52,6 +74,7 @@ function genLineChart(selector) {
 
 
     lc_line = d3.line()
+        .defined(function (d) {return d; })
         .x(function(d) {
             return lc_x(parseTime(d.period));
         })
@@ -59,13 +82,22 @@ function genLineChart(selector) {
             return lc_y(d.value);
         });
 
+    genFooter(selector);
+
     lc_g.append('g').attr('transform','translate(0,' + height + ')')
         .call(d3.axisBottom(lc_x));
         //.select('.domain').remove() - wtf is doing this?
 
     lc_g.append('g')
-        .call(d3.axisLeft(lc_y));
-        //.append('')pi
+        .call(d3.axisLeft(lc_y).ticks(7));
+    lc_g.append('image')
+        .attr('xlink:href','img/g_z_cdy.JPG')
+        .attr('x',-40)
+        .attr('y',lc_y(2.95))
+        .attr('width',40)
+        .attr('height',40)
+        .style("text-anchor", "middle");
+
 
     lc_g.append('g').attr('id','lines');
 
@@ -83,6 +115,9 @@ function updLineChart() {
     var reqs = genReqsList();
     var j = 0;
     var rank = 0;
+
+    updTitle('#appCont #lineChartTitle h4');
+
     for (var i in reqs) {
         processLine(reqs[i],i)
     }
@@ -97,10 +132,22 @@ function processLine(req,rank) {
     });
 }
 function DrawLine(result,rank,faded) {
+    yrs = Array.from(new Array(13), (x,i) => i + 2005);
+
+    function filterResults (yr) {
+            el = result.data.interindexes.find(x=> x.period == yr);
+            if(typeof el === 'undefined') {
+                return null
+            }
+            else {
+                return {period:yr,value:el.value}
+            }
+    }
+    let data = yrs.map(filterResults);
 
     lines = lc_g.select('#lines');
     lines.append('path')
-        .datum(result.data.interindexes)
+        .datum(data)
         .attr("fill", "none")
         .attr("stroke", function() {if (faded) {return '#d1d4d3'} else {return lc_color[rank]}})
         .attr("stroke-linejoin", "round")
@@ -110,7 +157,7 @@ function DrawLine(result,rank,faded) {
         .attr("d", lc_line);
     if (!faded) {
         lines.append('g').selectAll('circle')
-            .data(result.data.interindexes)
+            .data(data.filter(function(d) { return d; }))
             .enter()
             .append('circle')
             .attr('r', 3)
@@ -144,7 +191,7 @@ function DrawLine(result,rank,faded) {
 function DrawLegend(result,rank,faded) {
     var g = lc_legend.append('g')
         .attr('id',result[0].name)
-        .attr('transform','translate(' + rank * 150 + ',0)');
+        .attr('transform','translate(0,' + rank * 25 + ')');
     if (faded) {
         g.append('line')
             .attr('x1',0)
@@ -185,4 +232,52 @@ function genReqsList() {
         result.push(obj)
     }
     return result;
+}
+
+function updTitle(selector) {
+    el = $(selector + ' #LineChartTitle');
+
+    let multipurpose = Object.keys(ddlconfig).find(x => ddlconfig[x].multiple === true);
+
+    let s = '';
+
+    let fields = $('#ddl_fields select').select2('data');
+    let countries = $('#ddl_countries select').select2('data');
+    let methods = $('#ddl_methods select').select2('data');
+
+    switch (multipurpose) {
+        case 'countries':
+            s = `Globalization in ${fields[0].text} measured by ${methods[0].text}`;
+            break;
+        case 'fields':
+            s = `Globalization in ${countries[0].text} measured by ${methods[0].text}`;
+            break;
+        case 'methods':
+            s = `Globalization in ${countries[0].text} in ${fields[0].text}`;
+            break;
+    }
+    $(selector).text(s)
+}
+
+function genTitle(selector) {
+    $(selector).append($('<div />', {id:'LineChartTitle'}));
+    $(selector + ' #lineChartTitle').append('<h4 />');
+
+    updTitle(selector + ' #lineChartTitle h4');
+    $(selector + ' #lineChartTitle h4').css('width', sizes.chart.width + 'px');
+    $(selector + ' #lineChartTitle h4').css('margin-left', (sizes.chart.width/2)*-1 + 'px');
+    //    width:1000px;
+    //     margin-left: -500px;
+
+}
+
+function genFooter(selector) {
+    $(selector).append($('<div />', {id:'LineChartFooter'}));
+    s = 'Source: <a class="modalLink" onclick="showModal(\'modScopus\')">Scopus</a>; $G_{c,d,y}^Z = 0$ ' +
+        'is an average across all countries, disciplines and years. $G_{c,d,y}^Z = 1$ is one standard deviation above average. ' +
+        '$G_{c,d,y}^Z$ only reported when calculated from at least 30 journals. ' +
+        'The sudden jumps can be, in most cases, explained by entrance or exit of important journals in Scopus';
+    $(selector + ' #lineChartFooter').append('<p>'+ s +'</p>');
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"LineChartFooter"]);
+
 }

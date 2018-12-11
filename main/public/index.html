@@ -14,6 +14,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
 
 <link rel="stylesheet" type="text/css" href="stylesheets/page.css" />
+<link rel="stylesheet" type="text/css" href="stylesheets/controls.css" />
 <link rel="stylesheet" type="text/css" href="stylesheets/chart.css" />
 <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" />
 <link href="https://fonts.googleapis.com/css?family=Nunito+Sans&amp;subset=latin-ext" rel="stylesheet">
@@ -25,26 +26,30 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML' async></script>
 <script type="text/x-mathjax-config">
 MathJax.Hub.Config({
-  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}
+  tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]},
 });
 </script>
 
 
 <script src="javascripts/controls.js" ></script>
+<script src="javascripts/controls_data.js" ></script>
 <script src="javascripts/chart.js" ></script>
 <script src="javascripts/page.js" ></script>
 <script src="javascripts/data.js" ></script>
 
-<title>Globalization in Science</title>
+<script src="data/methods.js"></script>
+
+<title>Globalization of research output</title>
 
 <body onload="loadJS()">
 <div id="everything">
     <div id="intro" class="fix fullscreen fixactive">
         <div class="content">
-            <h1 id="title">Globalization in Science</h1>
+            <h1 id="title">Globalization of Research Output</h1>
             <h2 id="subtitle">The international focus of countries and disciplines</h2>
+            <h2 id="subtitle">WORKING VERSION, PLEASE DO NOT DISTRIBUTE!</h2>
 
-            <p style="font-size:calc(15px + .7vh);" >Vít Macháček a Martin Srholec</p>
+            <p style="font-size:calc(15px + .7vh);" >Vít Macháček</p>
             <div id="logos">
                 <a href="https://idea.cerge-ei.cz/" target="_blank"><img src="img/idea-white2.svg" class="logo"/></a>
                 <a href="http://av21.avcr.cz/" target="_blank" ><img src="img/strategie_red_white.svg" class="logo"/></a>
@@ -64,10 +69,10 @@ MathJax.Hub.Config({
         <div class="content">
             <center>
                 <a id="mContext" onclick="MoveOn('context')">Context</a>
-                <a id="mapp" onclick="MoveOn('empt-app')">Interactive App</a>
-                <a id="mWorld" onclick="MoveOn('world')">World</a>
-                <a id="mRegion" onclick="MoveOn('region')">Regions</a>
-                <a id="mDisciplines" onclick="MoveOn('disciplines')">Disciplines</a>
+                <a id="mWest" onclick="MoveOn('west')">West</a>
+                <a id="mEast" onclick="MoveOn('east')">East</a>
+                <a id="mChina" onclick="MoveOn('china')">China</a>
+                <a id="mRussia" onclick="MoveOn('russia')">Russia</a>
             </center>
         </div>
         <a class="corner" href="http://av21.avcr.cz/" target="_blank" style="right: 10px;"><img src="img/justStrategyWhite.png" /></a>
@@ -76,96 +81,186 @@ MathJax.Hub.Config({
     <div id="menuempty"></div>
     <div id="context" class="flow flowtext">
         <div class="content">
+            <!--TODO: unify terms:-->
+            <!-- Global or globalized journal?-->
             <h3>The Globalization of Research</h3>
-            <p>One of the most basic principles of research is its <a class="modalLink" onclick="showModal('modInternationality')">international dimension</a>.
-                Only research that is acknowledged by international audience is considered truly relevant and groundbreaking.
-                The pressure on originality forces researchers to compare their discoveries not only with their
-                local colleagues, but also with their peers across the globe. The integration of national research outputs into the international knowledge
-                flows is thus one of the most important goals of national research policies.</p>
+            <h4>Motivation</h4>
+            <p>The current research system is structured globally.
+               The significant discoveries are to be presented to researchers across the world. Naturally, scientific publications
+                should be published in <a class="modalLink" onclick="showModal('modInternationality')">journals with global reach</a>.</p>
 
-            <p>For many researchers publishing and discussing their results in the international arena is natural.
-                However in some research systems, the scientific output is still significantly bounded by local borders and ties.</p>
+            <p>The research sector is ongoing a massive transformation in the recent decades. The research output grows in both
+                traditional research oriented countries, but also in many developing countries.
+                Research output globalization contains a useful information about this transformation process.</p>
 
-            <p>In this study, the <a class="modalLink" onclick="showModal('modScopus')">Scopus</a> data are used to evaluate the international focus of research
-                in all combinations of <a class="modalLink" onclick="showModal('modCountries')">countries</a> and
-                <a class="modalLink" onclick="showModal('modDisciplines')">disciplines</a> from 2001 to 2017. To verify robustness of results,
-                multiple <a class="modalLink" onclick="showModal('modMethods')">methods</a> of calculation of international focus are used.</p>
+            <p>Our <a target="_blank" class="modalLink" onclick="showModal('modPrevious')">previous research in IDEA</a> revealed
+                substantial differences in the tendency to publish in local journals. In Romania or Croatia, more than 25 %
+                of national research output is published in the local journals. The same figure is below 2% in Finland, Austria, Israel or Sweden.</p>
 
-            <p>The measure of globalization is derived on the journal level. The calculation was performed for all academic journals
-                in the <a class="modalLink" onclick="showModal('modScopusSourceList')">Scopus Source List</a>.
-                Afterwards, the data were aggregated for all combination of discipline and countries as a weighted average of all documents
-                flowing from authors from particular country to journals in particular discipline. Interested readers can gain deeper insight in the calculation through <a class="modalLink" onclick="showModal('modFramework')">general framework</a> and the detailed <a class="modalLink" onclick="showModal('modMethods')">description of methods</a>.</p>
+            <p>This study seeks for to explain such differences on the systematic way comparable across countries and disciplines and simply scalable to the whole world.</p>
 
-            <p>Globalization should not be confused with quality. There are many international journals publishing low quality results.
-                On the other hand results published in a locally oriented journal are unlikely to be truly groundbreaking
-                as their authors can gain more attention by publishing it in the journal with international audience. </p>
+            <p>Globalization should not be confused with quality. Many global journals publish low-quality results.
+                On the other hand, truly groundbreaking discoveries are likely to be published in the globalized journals.</p>
 
-            <p>The results are presented in an interactive application so that the reader can analyze the situation in his particular discipline.</p>
+            <p>On the other hand, not every publication has to reach the global audience. Certain research topics, mainly in Arts and Humanities,
+                can be naturally organized locally. This can result in the differences between disciplines.
+                But it can hardly explain systematic differences between countries within the same discipline.</p>
+
+            <h4>Methods</h4>
+            <p>The globalization is derived on the journal level. A set of 6 indicators was calculated for all journals
+                in the <a class="modalLink" onclick="showModal('modScopusSourceList')">Scopus Source List</a>. See the detailed
+                <a class="modalLink" onclick="showMethodModal('euclid')">description of indicators</a>.</p>
+
+            <p>Subsequently, the journal's globalization indicators were scaled-up to the level of countries and disciplines as
+                a normalized weighted average of individual journals. The description of the scaling process is available in the
+                <a class="modalLink" onclick="showModal('modFramework')">general framework</a>.</p>
+
+            <p>The <a class="modalLink" onclick="showModal('modScopus')">Scopus</a> data are used to evaluate all combinations of
+                <a class="modalLink" onclick="showModal('modCountries')">countries</a> and
+                <a class="modalLink" onclick="showModal('modDisciplines')">disciplines</a> in yeach year from 2001 to 2017.
+                The 5 broadly defined and 27 narrowly defined sets of disciplines are used for the calculation.</p>
+
+            <p>Multiple <a class="modalLink" onclick="showModal('modMethods')">indicators</a> of globalization are used to improve the robustness of results.
+            The indicators are designed to be heterogenous both in terms of data and underlying mathemathics.</p>
+
+            <p>Similar approach to ours was suggested already by <a class="modalLink" onclick="showModal('modZittBassecoulard')">Zitt and Bassecoulard (1999)</a>.
+                However since then, the systematic evidence on the output globalization is missing.</p>
         </div>
     </div>
     <div id="app" class="fix fullscreen">
-        <div class="content">
-
-        </div>
     </div>
     <div id="empt-app" class="fixempty fullscreen"></div>
     <div id="lineChart_desc" class="fullscreen">
         <div class="content">
             <div id="resbox" class="box whitebox">
-                <h4>Describing line chart</h4>
+                <h4>Reading the chart</h4>
+                <p>Each point on chart represents the normalized globalization index $G^Z_{c,d,y}$ calculated for the individual combination of country,
+                    discipline and indicator in the particular year. For details see <a class="modalLink" onclick="showModal('modFramework')">general framework</a> and
+                    <a class="modalLink" onclick="showMethodModal('euclid')">description of indicators</a>.</p>
+                <p>Use dropdown menus above the chart to choose appropriate combination of country (or country group), discipline and indicator.</p>
+                <p>It is possible to compare within the particular dimensions using the button <img src="img/comparison.svg" width="20" height="20" /> . Reader can choose to compare:</p>
+                    <ul>
+                        <li><i>countries</i> within the same indicator and discipline</li>
+                        <li><i>disciplines</i> within the same country and indicator</li>
+                        <li><i>indicators</i> within the same country and discipline</li>
+                    </ul>
+                <p>When comparing countries also the world average of a given discipline and indicator is displayed on chart as a benchmark.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="caveats" class="flow flowtitle">
+        <div class="content">
+            <h3>Keep in mind while reading ...</h3>
+            <ul>
+            <li>The year-by-year development depends on the journals actually indexed in the Scopus database. The large jumps
+                in the globalization are caused by adding or removing journals in Scopus.</li>
+            <li>The disciplines are classified on the journal level. The documents published in multidisciplinary journals
+                are treated with all disciplines they are assigned to. That can lead to distortions with large journals such as Plos One.</li>
+            <li>The globalization is only reported when the authors from a given country and discipline publish in
+                at least 30 journals in the particular year.</li>
+            <li>Globalization indicators naturally favour English speaking countries relative to other world languages.</li>
+            <li>The country groups are computed as simple averages of member countries.</li>
+            <li>All disciplines are calculated from a different set of journals. Both narrow and broad disciplines are calculated separately.</li>
+            <li>The globalization development in time takes into account the world trend as the disciplines aggregates are calculated from all available years.</li>
+            <li>Only articles, reviews and conference papers are considered in this analysis. This is especially important for disciplines,
+                where other publishing platforms (for example <i>books</i> or <i>letters</i>) are significant.</li>
+            </ul>
+            <!--TODO Prepsat posledni odstavec. Zvaz jestli z toho neudelat seznam.-->
+        </div>
+    </div>
+    <div class="fixempty fullscreen"></div>
+
+    <div class="fullscreen">
+        <div class="content">
+            <div class="box whitebox">
+                <h4>Broad picture</h4>
+                <p>Countries are classified in three <a class="modalLink" onclick="showModal('modCountryGroups')">groups</a>: <i>Advanced Countries</i>
+                    (mainly Western Europe, USA, Australia and Asian developed countries), <i>Transition Countries</i> (former Soviet Bloc) and
+                    <i>Developing Countries</i> (the rest of the world).</p>
+                <p><i>Transition Countries</i> are less globalized than <i>Advanced Countries</i>.</p>
+                <p>This observation is robust across majority of disciplines and indicators.</p>
+                <p class="tip">Tip: Explore Advanced, Transition and Developed countries' performance in different disciplines and indicators using the upper menu.</p>
             </div>
         </div>
     </div>
 
     <div id="world" class="flow flowtitle">
         <div class="content">
-            <h3>General trends</h3>
+            <p>The common pattern in <i>Advanced Countries</i> is to publish in global journals. More than 70 % of their documents is published
+                in the upper half of journals according to the <i>Euclidian distance</i> indicator.</p>
+            <p>The same figure is approximately 55 % in the <i>Transition Countries</i>. The authors from post-communist countries
+                still publish more than half of their output in the more globalized half of journals.</p>
+        </div>
+    </div>
+    <div class="fixempty fullscreen"></div>
+
+
+
+    <div id="west" class="flow flowtitle">
+        <div class="content">
+            <h3>Advanced Countries</h3>
+        </div>
+    </div>
+    <div class="fixempty fullscreen"></div>
+
+
+    <div class="fullscreen">
+        <div class="content">
+            <div class="box whitebox">
+                <p>Very similar pattern can is seen when <i>Advanced Countries</i> are disaggregated into different disciplines. <i>Life Sciences</i>
+                    are similarly globalized as the <i>Physical Sciences</i> or <i>Social Sciences</i>.</p>
+                <p>Several disciplines are slightly below the average ($G_{c,d,y,i}^Z=0$) in <i>France</i>, <i>Germany</i>, <i>Japan</i> and <i>Spain</i>.</p>
+                <p>The same pattern is observable in both broadly and narrowly defined disciplines. Only <i>Earth and Planetary Sciences</i>,
+                    <i>Medicine</i> and <i>Nursing</i> are slightly below average.</p>
+            </div>
+        </div>
+    </div>
+    <div class="fixempty fullscreen"></div>
+
+
+    <div id="east" class="flow flowtitle">
+        <div class="content">
+            <h3>Social Sciences in Eastern Europe</h3>
         </div>
     </div>
     <div class="fixempty fullscreen"></div>
     <div class="fullscreen">
         <div class="content">
             <div class="box whitebox">
-                <h4>The world average did not grow</h4>
+                <p>But this does not hold for former Soviet countries. Especially social sciences are still significantly locally biased.</p>
+                <p class="tip">Tip: Also health sciences are very local in these countries. You see the difference when comparing with Life Sciences.</p>
             </div>
         </div>
     </div>
-
-    <div id="region" class="flow flowtitle">
+    <div id="china" class="flow flowtitle">
         <div class="content">
-            <h3>China witnessed massive internationalization of their research</h3>
+            <h3>China</h3>
         </div>
     </div>
     <div class="fixempty fullscreen"></div>
-
     <div class="flow flowtitle">
         <div class="content">
             <p>All indicators show remarkable success of research reform in China after 2000</p>
+            <p class="tip">Tip: You can compare in each dimension, i.e.: countries, disciplines and also methods. Just switch using the button  <img src="img/comparison.svg" width="20" height="20" /></p>
         </div>
     </div>
     <div class="fixempty fullscreen"></div>
 
-
+    <div id="russia" class="flow flowtitle">
+        <div class="content">
+            <h3>Russian Federation</h3>
+        </div>
+    </div>
+    <div class="fixempty fullscreen"></div>
     <div class="flow flowtitle">
         <div class="content">
-            <p>On the other hand Russia fails to publish their results in international journals in all fields and all methods. </p>
+            <p>On the other hand Russia fails to publish their results in international journals in all disciplines and all methods.</p>
+            <p class="tip"></p>
         </div>
     </div>
     <div class="fixempty fullscreen"></div>
 
-    <div id="disciplines" class="flow flowtitle">
-        <div class="content">
-            <p>In some countries the internationalization varies across fields</p>
-        </div>
-    </div>
-    <div class="fixempty fullscreen"></div>
-
-    <div id="conclusion" class="flow flowtext">
-        <div class="content">
-            <h3>Conclusion</h3>
-        </div>
-    </div>
-    <div id="empt-conclusion" class="fixempty fullscreen"></div>
 
     <div id="thanks" class="flow">
         <div class="content">
@@ -175,10 +270,12 @@ MathJax.Hub.Config({
             <a href="http://av21.avcr.cz/" target="_blank" ><img src="img/Logo_Strategie_V3m.svg" class="logo"/></a>
             <h2 >If you liked it, do not forget to share!</h2>
 
+            <p>I thank Martin Srholec for assistance with guidance and supervision</p>
+
             <div id="shares">
-                <a id="fb"target="_blank" href=""><img src="img/fb.svg" /></a>
-                <a id="tw"target="_blank" href=""><img src="img/twitter2.svg" /></a>
-                <a id="li"target="_blank" href=""><img src="img/linkedin.svg" /></a>
+                <a id="fb" target="_blank" href=""><img src="img/fb.svg" /></a>
+                <a id="tw" target="_blank" href=""><img src="img/twitter2.svg" /></a>
+                <a id="li" target="_blank" href=""><img src="img/linkedin.svg" /></a>
                 <a id="mail" href=""><img src="img/mail.svg" /></a>
                 <a onclick="showCopyLink()"><img src="img/link.svg" /></a>
             </div>
@@ -195,54 +292,188 @@ MathJax.Hub.Config({
 
 
     <div id="modalWrap" class="modalBackground">
+        <div id="modInternationality" class="modal">
+            <div class="close" onclick="hideModal()"><img src="img/closeIcon3.svg"/></div>
+            <div class="modalBody">
+                <h3>Research Globalization</h3>
+                <center><a onclick="hideModal()" class="button buttonActive">Skrýt</a></center>
+
+            </div>
+        </div>
+
+        <div id="modZittBassecoulard" class="modal">
+            <div class="close" onclick="hideModal()"><img src="img/closeIcon3.svg"/></div>
+            <div class="modalBody">
+                <h3>Zit and Bassecoulard (1998) and (1999)</h3>
+                <p>The pioneering papers on the internationality of science. The 1998 paper suggest a methodology
+                    for evaluating globalization of a journal and the 1999 paper suggest scaling to the level of countries and disciplines.</p>
+
+                <p><span style="font-variant: small-caps;">M. Zitt, E. Bassecoulard</span> Internationalization of scientific journals: a measurement based on publication and citation scope, <i>Scientometrics</i>, 41(1–2) (1998) 255–271. Available at: <a href="https://link.springer.com/article/10.1007/BF02457982" target="_blank">https://link.springer.com/article/10.1007/BF02457982</a></p>
+                <p><span style="font-variant: small-caps;">M. Zitt, E. Bassecoulard</span> Internationalization of communication a view on the evolution of scientific journals, <i>Scientometrics</i>, 46(3) (1999) 669-685. Available at: <a href="https://link.springer.com/article/10.1007/BF02459619" target="_blank">https://link.springer.com/article/10.1007/BF02459619</a> </p>
+
+                <center><a onclick="hideModal()" class="button buttonActive">Skrýt</a></center>
+
+            </div>
+        </div>
+
+
+        <div id="modScopus" class="modal">
+            <div class="close" onclick="hideModal()"><img src="img/closeIcon3.svg"/></div>
+            <div class="modalBody">
+                <h3>Scopus Database</h3>
+                <p><a href="https://www.scopus.com/search/form.uri?display=basic" target="_blank">Scopus</a> is a
+                    well-known citation database of peer-reviewed literature, managed by <a href="https://www.elsevier.com/" target="_blank" >Elsevier</a>.</p>
+                <p>Together with Web of Science, it is considered a standard bibliometric database.
+                    Researchers tend to publish primarily in journals indexed in one of these databases.</p>
+                <p>In comparison with Web of Science, the Scopus database is less selective. Scopus currently indexes
+                    approximately twice more journals than Web of Science.
+                    <a class="modalLink" onclick="showModal('modReferences')">Mongeon and Paul-Hus (2016)</a>
+                    show, that most journals indexed in WoS are also indexed in Scopus.
+                    Thus, the Scopus indexation is more benevolent than Web of Science.</p>
+                <p>Scopus is more likely to index journals with only local scope and
+                    is better suitable for studying globalization of research across the globe.</p>
+                <center><a onclick="hideModal()" class="button buttonActive">Skrýt</a></center>
+            </div>
+        </div>
+
+        <div id="modCountries" class="modal">
+            <div class="close" onclick="hideModal()"><img src="img/closeIcon3.svg"/></div>
+            <div class="modalBody">
+                <h3>Countries</h3>
+                <p>The data contains 195 independent states. Also country groups based on various classifications are included.</p>
+                <p>The Scopus country data are relatively clean.
+                    Only minor cleaning of original Scopus data on countries was needed. The data for <i>Yugoslavia</i>
+                    before 2007 were added to Serbia. Several documents for Russia were merged with Russian Federation.</p>
+                <p>Approximately 5% of all documents are assigned an <i>undefined</i> country. These observations are excluded so they do not affect a calculation process.</p>
+                <p>The country groups are calculated as a simple average of all countries belonging to the group.</p>
+                <p>Regional grouping is based on the World Bank classification. A few regions were further divided:</p>
+                <ul>
+                    <li>Europe & Central Asia => <i>Europe</i> and <i>Central Asia</i></li>
+                    <li>Middle East & North Africa => <i>Middle East</i> and <i>North Africa</i></li>
+                    <li>East Asia & Pacific => <i>East Asia</i> and <i>Pacific</i></li>
+                </ul>
+                <p>Also World Bank's income classification is included in the country groups.</p>
+                <p>The IMF 2003 classification is used to group countries according to their economic status. Besides rather traditional <i>Advanced Countries</i>
+                   and <i>Developing Countries</i>, the IMF classification also contains a useful <i>Transition Countries</i> category.</p>
+                <center><a onclick="hideModal()" class="button buttonActive">Skrýt</a></center>
+            </div>
+        </div>
+        <div id="modCountryGroups" class="modal">
+            <div class="close" onclick="hideModal()"><img src="img/closeIcon3.svg"/></div>
+            <div class="modalBody">
+                <h3>Country groups</h3>
+                <h5>Economic status</h5>
+                <p><b>Advanced Countries</b>: Andorra, Australia, Austria, Belgium, Canada, Cyprus, Denmark, Finland, France, Germany,
+                    Greece, Hong Kong, Iceland, Ireland, Israel, Italy, Japan, Liechtenstein, Luxembourg, Monaco, Netherlands, New Zealand,
+                    Norway, Portugal, San Marino, Singapore, South Korea, Spain, Sweden, Switzerland, Taiwan, United Kingdom, United States</p>
+                <p><b>Transition Countries</b>: Albania, Armenia, Azerbaijan, Belarus, Bosnia and Herzegovina, Bulgaria, Croatia, Czech Republic, Estonia, Georgia, Hungary,
+                    Kazakhstan, Kyrgyzstan, Latvia, Lithuania, Macedonia, Moldova, Mongolia, Montenegro, Poland, Romania, Russian Federation,
+                    Serbia, Slovakia, Slovenia, Tajikistan, Turkmenistan, Ukraine, Uzbekistan
+                <p><b>Developing Countries</b>: The rest of the world</p>
+                <h5>Income level</h5>
+                <p><b>High Income</b>: Andorra, Antigua and Barbuda, Argentina, Australia, Austria, Bahamas, Bahrain, Barbados,
+                    Belgium, Brunei Darussalam, Canada, Chile, Croatia, Cyprus, Czech Republic, Denmark, Estonia, Finland,
+                    France, Germany, Greece, Hong Kong, Hungary, Iceland, Ireland, Israel, Italy, Japan, Kuwait, Latvia,
+                    Liechtenstein, Lithuania, Luxembourg, Malta, Monaco, Netherlands, New Zealand, Norway, Oman, Palau, Panama,
+                    Poland, Portugal, Qatar, Saint Kitts and Nevis, San Marino, Saudi Arabia, Seychelles, Singapore, Slovakia, Slovenia,
+                    South Korea, Spain, Sweden, Switzerland, Taiwan, Trinidad and Tobago, United Arab Emirates, United Kingdom, United States, Uruguay
+                </p>
+                <!--TODO dodelat country groups pokud je tam chces-->
+                <h5>Regions</h5>
+                <p></p>
+
+                <center><a onclick="hideModal()" class="button buttonActive">Skrýt</a></center>
+            </div>
+        </div>
+
+        <div id="modDisciplines" class="modal">
+            <div class="close" onclick="hideModal()"><img src="img/closeIcon3.svg"/></div>
+            <div class="modalBody">
+                <h3>Disciplines</h3>
+                <p>The disciplines are assigned on the journal level. The <a href="https://www.elsevier.com/solutions/scopus/how-scopus-works/content" target="_blank">Scopus Journal Classification</a>
+                    is used for this purpose. The data are taken from the Scopus Source List.
+                    The journals are classified under 5 broad subject clusters (4 Scopus areas + <i>All Fields</i>) and 27 narrower major subject areas.</p>
+                <p>Journals can be assigned into multiple disciplines. All documents in the journal are included in the calculation of all disciplines it is assigned into.</p>
+                <center><a onclick="hideModal()" class="button buttonActive">Skrýt</a></center>
+            </div>
+        </div>
+
+        <div id="modJournals" class="modal">
+            <div class="close" onclick="hideModal()"><img src="img/closeIcon3.svg"/></div>
+            <div class="modalBody">
+                <h3>Journals</h3>
+                <p>The list of journals included in the calculation is taken from the Scopus Source List - regularly updated document published by Scopus, that should contain the list of indexed in the Scopus database. We </p>
+                <p>Only academic journals are included in order to achieve comparability of results. Both active and inactive journals are included to get maximum validity </p>
+                <p></p>
+                <center><a onclick="hideModal()" class="button buttonActive">Skrýt</a></center>
+            </div>
+        </div>
+
         <div id="modFramework" class="modal">
             <div class="close" onclick="hideModal()"><img src="img/closeIcon3.svg" /></div>
             <div class="modalBody">
                 <h3>General calculation framework</h3>
-                <p>The globalization index for each country is calculated as a weighted average of $J$ journals operating in the discipline $d$:</p>
+                <p>The globalization $G_{c,d,y,i}$ represented by indicator $i$ for each country $c$, discipline $d$
+                    and year $y$ is calculated as a weighted average of $J$ journals operating in the discipline $d$:</p>
                 $$
-                G_{c,d,y,m} = \sum_{j=1}^{J} a_{c,d,y,j} \cdot	g_m(X_{j,d,y,m})
+                G_{c,d,y,i} = \sum_{j=1}^{J} a_{c,d,y,j} \cdot	g_i(X_{j,d,y,i})
                 $$
-                <p>where $G_{c,d,y,m}$ is the globalization index of country $c$ in the discipline $d$ in year $y$ calculated by method $m$.
-                    $a_{c,d,y,j}$ is the share of authors from the country $c$ publishing in particular journal $j$ relative to the whole discipline $d$ and
-                    $g_m(X_{j,d,m,y})$ is the globalization of the individual journal $j$ calculated by method $m$, using the relevant data $X_{j,d,m,y}$.</p>
+                <p>where $a_{c,d,y,j}$ is the share of authors publishing in journal $j$ on all authors from the country $c$, discipline $d$ and year $y$.
+                    $g_i(X_{j,d,i,y})$ is the globalization of journal $j$ calculated by function $g_i$ specific to each indicator, using the relevant data $X_{j,d,i,y}$.</p>
                 <p>Results are reported as z-scores:</p>
                 $$
-                G_{c,d,y,m}^Z = \frac{G_{c,d,y,m} - \mu_{m}}{\sigma_m} \cdot C_m
+                G_{c,d,y,i}^Z = \frac{G_{c,d,y,i} - \mu_{i}}{\sigma_i} \cdot C_i
                 $$
-                <p>where $\mu_m$ and $\sigma_m$ are average and standard deviation calculated over all years, countries and disciplines
-                    within a single method and $C_m=1$ for maximizing methods (i.e. the larger the indicator the larger globalization) and $C_m=-1$ for minimizing methods.</p>
-                <p>Hence, when $G_{c,d,y,m}^Z = 0$ then the globalization index is just average across all years, countries and disciplines.
-                    When $G_{c,d,y,m}^Z = 1$ then the globalization index is one standard deviation above average.
-                    This allows for comparison of results across countries, disciplines, years, but also methods.</p>
-                <h4>Globalization measures</h4>
-                <p>The methods used for calculation are summarized in the table \ref{tab:methodCategories} and full list is available below.
-                    Methods differ both in the used formula $g_m(.)$, but also in the data that are used for calculation $X_{j,d,y,m}$.</p>
-                <h5>Definitions</h5>
-                <p>In all cases, the calculation uses the number of documents $D_{x,j,y}$ in the journal $j$ in published in $y$ fulfilling some condition $x$.
-                    As the methods of the calculation vary, $x$ can stand for countries, institutions or the language of the documents. $T_{j,y}$
-                    denotes all the documents published in the journal $j$ in the year $y$.</p>
-                <p>Often, the country distribution of authors of both journals (vector $x_{j,y}$) and the discipline ($m_{d,y}$) is used.
-                    The individual elements are calculated in a natural way: $x_{c,j,y} $ is a simple share of documents affiliated to the country $D_{c,j,y}$
-                    relative to the total number of documents $T_{j,y}$. The discipline's share of authors is then just a sum over all journals active in the particular discipline $d$.</p>
-                $$
-                x_{c,j,y} = D_{c,j,y}/T_{j,y}
-                $$
-                $$
-                m_{c,d,y} = \sum_{j=1}^J D_{c,j,y} / \sum_{j=1}^J T_{j,y}
-                $$
-
+                <p>where $\mu_i$ and $\sigma_i$ are average and standard deviation calculated over all years, countries and disciplines
+                    within a single method and $C_i=1$ for maximizing methods (i.e. the larger the indicator the larger globalization) and $C_i=-1$ for minimizing methods.</p>
+                <p>Hence, when $G_{c,d,y,i}^Z = 0$ then the globalization is just average across all years, countries and disciplines.
+                    When $G_{c,d,y,i}^Z = 1$ then the globalization is one standard deviation above the average.
+                    This allows for comparison of results across countries, disciplines, years, but also indicators.</p>
+                <p>To achieve maximum robustness $G_{c,d,y,i}^Z$ is only reported when it is calculated using data of at least 30 journals.
+                    This leads to lack of data in the small disciplines in small countries.</p>
             </div>
             <center><a onclick="hideModal()" class="button buttonActive">Skrýt</a></center>
         </div>
 
         <div id="modMethods" class="modal">
             <div class="close" onclick="hideModal()"><img src="img/closeIcon3.svg" /></div>
-            <div class="modalBody" style="padding: 0vw 20 vw;">
-                <h3>Methods</h3>
-                <div>Select method: </div>
+            <div class="modalBody" style="padding: 0vw 20vw;">
+                <h3>Globalization Indicators</h3>
+                <p>A variety of different indicators is developed to assess the globalization of journals. The indicators are designed
+                    to be heterogeneous so that it can serve as a robustness check. They differ both in the used formula $g_i$ and the underlying data $X_{j,d,y,i}$.</p>
+                <p>Subsequently, the journal globalization is scaled-up to the level of countries and disciplines using the method described in <a class="modalLink" onclick="hideAndShowModal('modFramework')">general framework.</a></p>
+
+                <p>Only journals with at least 30 documents in particular year are included in the calculation.</p>
+                <h5>Definitions</h5>
+                <p>Let $D_{c,j,y}$ and $D_{l,j,y}$ be the number of documents in the journal $j$ published in year $y$.
+                    $c$ is the country of the author's affilation and $l$ is the language of the publication reported to the Scopus database.
+                    $T_{j,y}$ denotes the number of all documents published in the journal $j$ in the year $y$.</p>
+                <p>Some indicators use the country distribution of authors of both journals (vector $x_{j,y}$) and the discipline ($m_{d,y}$).
+                    The individual elements are the country's proportion in the journal $j$: $D_{c,j,y}/T_{j,y}$.
+                    The discipline's share is then just a proportion of country within all journals $j$ in an aggregate discipline $d$: $\sum_{j=1}^J D_{c,j,y} / \sum_{j=1}^J T_{j,y} $.</p>
+            <div>
+                    <span id="swMethods" class="switcher">
+                        <span class="pretext">Indicator: </span>
+                        <span id="sweuclid" class="switchCol switchActive" onclick="displayMethod('euclid')">Euclid</span>
+                        <!--<span id="swcosine" class="switchCol" onclick="displayMethod('cosine')">Cosine</span>-->
+                        <!--<span id="swmaxdif" class="switchCol" onclick="displayMethod('maxdif')">Maximum Difference</span>-->
+                        <!--<span id="swcityblock" class="switchCol" onclick="displayMethod('cityblock')">Cityblock</span>-->
+                        <span id="swGiniSimpson" class="switchCol" onclick="displayMethod('GiniSimpson')">GiniSimpson</span>
+                        <!--<span id="swinstTOP3" class="switchCol" onclick="displayMethod('instTOP3')">Largest Institutions</span>-->
+                        <span id="swtop3" class="switchCol" onclick="displayMethod('top3')">Largest Contributors</span>
+                        <span id="swshareEnglish" class="switchCol" onclick="displayMethod('shareEnglish')">English Documents</span>
+                        <span id="swlocalShare" class="switchCol" onclick="displayMethod('localShare')">Local Authors</span>
+                        <span id="swweightGini" class="switchCol" onclick="displayMethod('weightGini')">Weighted Gini</span> <!-- TODO: repair Gini's formula-->
+                    </span>
+                </div>
+                    <h4><span id="methodName"></span></h4>
+                    <p>Formula: <span id="methodFormula"></span></p>
+                    <p>Description: <span id="methodDesc"></span></p>
+                    <p>Input: <span id="methodInput"></span></p>
+                    <p>Source: <span id="methodSource"></span></p>
+                </div>
             </div>
-        </div>
+
         <div id="modMy" class="modal">
             <div class="close" onclick="hideModal()"><img src="img/closeIcon3.svg" /></div>
             <div class="modalBody" style="padding:0vw 20vw;">

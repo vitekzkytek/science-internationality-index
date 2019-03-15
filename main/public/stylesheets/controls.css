@@ -4,8 +4,14 @@
     font-size: calc(9px + 0.6vh);
 }
 
+.switcher.pretext {
+    font-weight: bold;
+}
 .switcher {
-    float:left;
+    margin-top:50px;
+    float:none;
+    width: 100%;
+    text-align: center;
 }
 
 .switchCol {
@@ -73,4 +79,11 @@
     content: "";
     display: table;
     clear: both;
+}
+/* Clear floats after the columns */
+
+
+
+.select2-container--default .select2-results > .select2-results__options {
+    max-height: 450px;
 }

@@ -82,6 +82,13 @@ h4 {
     color: #bb133e;
 }
 
+blockquote {
+    background-color: #ddd;
+    font-size: smaller;
+    border: 1px #444 solid;
+    padding: 10px;
+}
+
 .footnote{
     font-size: calc(12px + 0.4vh);
     line-height: 1.1;
@@ -106,7 +113,7 @@ h4 {
 }
 
 .tip {
-    padding-left:50px;
+    padding-left:30px;
     font-style: italic;
     border-left:5px solid #bb133e;
 }
@@ -391,11 +398,18 @@ h4 {
 }
 
 .modalBody {
-    padding:0vw 5vw 0vw 5vw;
+    padding:0vw 15vw 0vw 15vw;
 }
 .modalBody h3 {
     color:#bb133e;
     padding:10px;
+}
+
+.modalBody h5 {
+    display: block;
+    width: 100%;
+    font-size: medium;
+    text-align: center;
 }
 .modalLink {
     color:#bb133e;
@@ -432,5 +446,27 @@ h4 {
 }
 
 
+.figWrap {
+    float: none;
+    margin:auto;
+    width: 100%;
+    text-align: left;
+    margin-top: 30px;
+}
+.figImg {
+    width: 100%;
+}
+.figHeader {
+    font-weight: bolder;
+    padding-bottom: 10px;
+}
 
+.figFooter {
+    font-style: italic;
+    font-size: smaller;
+}
 
+.listlike {
+    line-height:50%;
+    text-indent:1em;
+}

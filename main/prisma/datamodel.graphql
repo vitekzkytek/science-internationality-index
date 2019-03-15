@@ -9,6 +9,7 @@ type Country @pgTable(name: "country") {
   region: String
   wb_name: String
   name: String!
+  short_name: String!
   totdocs: Int!
 }
  

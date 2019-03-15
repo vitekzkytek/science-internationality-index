@@ -37,23 +37,25 @@ const queryIndex = ` query GetIndex_CMF(
             #country_code {id},
         period,
         value
-    },
+    }, 
     countries(where: $c){
         id,
         incomelevel,
         region,
         name,
+        full_name,
         oecd,
-        eu,
+        eu, 
         imf2003
         
     },
     fields(where:$f) {
-        id,
+        id, 
         name,
         level,
         scopus_code,
-        scopus_name
+        scopus_name,
+        leg_name
     },
     methods(where:$m) {
         id,

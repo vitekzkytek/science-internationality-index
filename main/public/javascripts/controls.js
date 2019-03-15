@@ -9,7 +9,7 @@ ddlconfig = {
         defaultVals:["All"],
         selectedVals:["All"],
         allowClear:true,
-        maximumSelectionLength:8
+        maximumSelectionLength:10
     },
     countries: {
         placeholder:{
@@ -18,8 +18,8 @@ ddlconfig = {
         },
         width:'90%',
         multiple:true,
-        defaultVals:['_ADV','_TRA'],
-        selectedVals:['_ADV','_TRA'],
+        defaultVals:["AUS", "DEU", "IDN", "ITA", "MEX", "NGA", "POL", "RUS", "TUR"],
+        selectedVals:["AUS", "DEU", "IDN", "ITA", "MEX", "NGA", "POL", "RUS", "TUR"],
         allowClear:true,
         maximumSelectionLength:10
     },
@@ -40,11 +40,13 @@ ddlconfig = {
 
 function generateControls(selector) {
     //controls = $('<div />', {id:'controls'}).appendTo(el);
-    $(selector).append($('<div />', {id: 'controls',style:`width:${sizes.chart.width}px;`}));
+    $(selector).append($('<div />', {id: 'controls',style:`width:${sizes.chart.width + sizes.legend.width}px;`}));
     generateDDLs(selector + ' #controls')
 }
 
 function generateDDLs(selector) {
+    $("<style type='text/css'> .select2-results { max-height; " + sizes.chart.height * 0.7 + "px;} </style>").appendTo("head");
+
     generateDDL(selector,'countries');
     generateDDL(selector,'fields');
     generateDDL(selector,'methods');
@@ -80,8 +82,12 @@ function generateDDL(selector,purpose) {
         var div = $('<div />',{id:ddlid,class:'column'}).appendTo($(selector));
         switcherclass =  (ddlconfig[purpose].multiple) ? 'switchcompare multiswitcher ' :'switchcompare';
 
-        div.append('<a class="' + switcherclass +'" onclick="switchMultiSelect(\'' + purpose + '\')">'+ svgcode +'</a>');
-
+        if (purpose == 'methods') {
+            div.append(`<svg width="${sizes.switchCompare.width}" height="${sizes.switchCompare.height}" />`)
+        }
+        else {
+            div.append('<a class="' + switcherclass +'" onclick="switchMultiSelect(\'' + purpose + '\')">'+ svgcode +'</a>');
+        }
         var ddlel = $('<select />').appendTo(div);
         // ajaxobj = query_dll_inputs(purpose);
         // $.post(ajaxobj.url, ajaxobj.data, function (result, status) {
@@ -95,10 +101,26 @@ function generateDDL(selector,purpose) {
                 multiple: ddlconfig[purpose].multiple,
                 maximumSelectionLength: ddlconfig[purpose].maximumSelectionLength
             });
+
+    ddlel.on("select2:select", function (evt) {
+        var element = evt.params.data.element;
+        var $element = $(element);
+
+        $element.detach();
+        $(this).append($element);
+        $(this).trigger("change");
+    });
+
     ddlel.val(ddlconfig[purpose].selectedVals).trigger('change',[false]);
 
     ddlel.on('change',changeEvent);//,data=[true]);
-
+    // ddlel.on("select2:select", function(evt) {
+    //     let $element = $(evt.params.data.element);
+    //
+    //     $element.detach();
+    //     $(this).append($element);
+    //     $(this).trigger('change',[false])
+    // })
 
     // })
     // }
@@ -140,14 +162,19 @@ function switchMultiSelect(purpose,updateChart = true) {
 }
 
 function displayMethod(method) {
+    method_obj = controllers.methods.results.find(x => x.id === method);
+
     $('.switchActive').removeClass('switchActive');
     $('#sw'+method).addClass('switchActive');
-    $('#methodName').text(methods[method].full_name);
-    $('#methodFormula').html('$' + methods[method].formula + '$');
-    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"methodFormula"]);
-    $('#methodDesc').text(methods[method].short_desc);
-    $('#methodInput').text(methods[method].input);
-    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"methodInput"]);
-    $('#methodSource').text(methods[method].Source);
+    $('#methodName').text(method_obj.full_name);
+    $('#methodDescription').html(method_obj.description);
+    MathJax.Hub.Queue(["Typeset",MathJax.Hub,"methodDescription"]);
+    // let form = (method != 'weightGini')? '$' + method_obj.formula +'$' : '$' + method_obj.formula +' $\n$' + ' g_{gini} = \\sum_{i=1}^{n} v_i *w_{i-1} - \\sum_{i=0}^{n-1} v_i *w_{i+1}$';
+    // $('#methodFormula').html(form);
+    // MathJax.Hub.Queue(["Typeset",MathJax.Hub,"methodFormula"]);
+    // $('#methodDesc').text(method_obj.short_desc);
+    // $('#methodInput').text(method_obj.input);
+    // MathJax.Hub.Queue(["Typeset",MathJax.Hub,"methodInput"]);
+    // $('#methodSource').html(method_obj.source);
 
 }

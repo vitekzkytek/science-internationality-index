@@ -16,16 +16,19 @@
     fill:none;
 }
 
-#lines circle {
+#lines path {
+    padding:10px;
+}
+
+#lines {
     cursor: pointer;
 }
 
 #LineChartTitle h4 {
     text-align: center;
     color: black;
+    margin:10px 0px 0px 0px;
 }
-
-
 
 div.tooltip {
     position: absolute;
@@ -33,9 +36,10 @@ div.tooltip {
     /*   width: 200px;
       height: 60px;    */
     padding: 2px;
+    font-weight: bold;
     /* font:12px sans-serif; */
-    color: #bb133e;
-    background: #E8EAE9;
+    /*color: #bb133e;*/
+    /*background: #E8EAE9;*/
     border: 0px;
     border-radius: 4px;
     pointer-events: none;
@@ -53,6 +57,9 @@ div.tooltip {
 }
 
 #lineChartTitle {
-    position:absolute;
-    left:50%;
+    margin:0;
+    /*height:40px;*/
+    vertical-align: middle;
+    /*position:absolute;*/
+    /*left:50%;*/
 }

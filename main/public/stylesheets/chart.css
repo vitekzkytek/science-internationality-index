@@ -63,3 +63,8 @@ div.tooltip {
     /*position:absolute;*/
     /*left:50%;*/
 }
+
+#appCont #chartCont, #appCont #controls {
+    position:absolute;
+}
+

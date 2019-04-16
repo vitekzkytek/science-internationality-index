@@ -1,20 +1,69 @@
 var lang = 'en';
+let weblink = 'http://ec2-18-188-88-0.us-east-2.compute.amazonaws.com:8080/';
+let webtitle = 'Globalization of Science';
+
 
 
 var waypoints;
 
 
 function loadJS() {
+    $('.urlField').val(weblink);
+
+    let warnDevs = ['Tablet','Smart-TV','Other non-Mobile','Other Mobile','Robot','App','Smartphone','Feature Phone'];
+    if (warnDevs.includes(WURFL.form_factor)) {
+        showModal('modSpecialDevice');
+    }
+
+    let banDevs = [];
+    if (banDevs.includes(WURFL.form_factor)) {
+        showModal('modRozliseni');
+        $('#modalWrap').off('click');
+    }
+
+
     sizes = setSizes();
 
     waypoints = waypointing();
 
+    // checkResolution();
+
     generateApp('#app');
 
-    //shareLinks();
-    //TODO loading screen
+    dragify();
+
+    shareLinks();
+
+    generateMap('#map');
+
+}
+function checkResolution() {
+    w = $(window).width();
+
+    if (w<999) {
+        showModal('modRozliseni');
+        $('#modalWrap').off('click');
+    }
 }
 
+function showCopyLink() {
+    showModal('modCopyLink')
+}
+
+function dragify() {
+
+    function moveAll(evt) {
+        $('.draggable').css('left',$(this).css('left'));
+    }
+    drags = $( ".draggable" );
+    drags.draggable({
+        handle: ".dragButton" ,
+        stop: moveAll
+    });
+    let leftpos = ($(window).width() - sizes.header.width > sizes.boxwidth) ? sizes.header.width + sizes.chart.left: $(window).width() - sizes.boxwidth - 20;
+    drags.css('left',leftpos);
+
+}
 
 function generateApp(selector) {
     $(selector).append($('<div />', {id:'appCont'}));
@@ -23,17 +72,6 @@ function generateApp(selector) {
 
     generateCharts(selector + ' #appCont');
 
-    //typesetSVGMath();
-
-}
-
-function typesetSVGMath() {
-    MathJax.Hub.Queue(
-        ["Typeset",MathJax.Hub,"genFooter"],
-        ["setRenderer",MathJax.Hub,"SVG"],
-        ["Typeset",MathJax.Hub,"svgLineChart"],
-        ["setRenderer",MathJax.Hub,"CommonHTML"]
-    );
 
 }
 
@@ -106,6 +144,12 @@ function waypointing() {
             }},offset:'17%'});
 
 
+    waypoints = $('#map').waypoint({handler:function(direction) {
+            if (direction === 'down') {
+                $('#mMap').addClass('storyPast')
+            } else {
+                $('#mMap').removeClass('storyPast')
+            }},offset:'17%'});
 
 
 
@@ -158,7 +202,7 @@ function waypointing() {
                 $('#ddl_fields select').val('All').trigger('change',[true]);
             } else {
                 switchMultiSelect('countries',false);
-                $('#ddl_countries select').val(["AUS", "DEU", "IDN", "ITA", "MEX", "NGA", "POL", "RUS", "TUR"]).trigger('change',[false]);
+                $('#ddl_countries select').val(["AUS", "EGY", "DEU", "IDN", "ITA", "MEX", "NGA", "POL", "RUS"]).trigger('change',[false]);
                 $('#ddl_fields select').val("All").trigger('change',[false]);
                 $('#ddl_methods select').val('euclid').trigger('change',[false]);
 
@@ -284,40 +328,9 @@ function waypointing() {
         {offset:'60%'}
     );
 
-
-    waypoints = $('#conclusion').waypoint(function(direction) {
-            if(direction === 'down') {
-                switchMultiSelect('countries',false);
-                $('#ddl_countries select').val(['_ADV','_TRA','_DEV']).trigger('change',[false]);
-                $('#ddl_fields select').val("All").trigger('change',[false]);
-                $('#ddl_methods select').val('euclid').trigger('change',[true]);
-            } else {
-                switchMultiSelect('fields',false);
-                $('#ddl_countries select').val("CZE").trigger('change',[false]);
-                $('#ddl_methods select').val("euclid").trigger('change',[false]);
-                $('#ddl_fields select').val(["top_Life", "top_Social", "top_Physical", "top_Health"]).trigger('change',[true]);
-            }
-        },
-        {offset:'60%'}
-    );
-
-
     return waypoints;
 }
 
-function getSizes() {
-    sizes.screen = {};
-    sizes.screen.height = $('.fullscreen').height();
-    sizes.screen.width = $('.fullscreen').width();
-
-    sizes.menu = {};
-    sizes.menu.height = $('#menu').height();
-
-    sizes.chart = {};
-    sizes.chart.width = (0.7*sizes.screen.height > 500) ? 0.7*sizes.screen.height : 500 ;
-    sizes.chart.height = 0.7*sizes.screen.height;// +50;
-
-}
 
 function MoveOn(selector,adjust=100) {
     $('html,body').animate({
@@ -360,3 +373,36 @@ $(document).keyup(function(e) {
         hideModal()
     }   // esc
 });
+
+
+
+function copyLink(copyInputSelector,copiedNoticeSelector) {
+    $(copiedNoticeSelector).hide();
+    /* Get the text field */
+    var copyText = $(copyInputSelector)[0];
+
+    /* Select the text field */
+    copyText.select();
+
+    /* Copy the text inside the text field */
+    document.execCommand("copy");
+
+    $(copiedNoticeSelector).fadeIn();
+}
+
+
+function shareLinks() {
+    //link = window.location.href;
+
+
+    //Facebook
+    $('#fb').attr('href',"https://www.facebook.com/sharer/sharer.php?u=" + encodeURI(weblink));
+
+    //Twitter
+    $('#tw').attr('href',"https://twitter.com/intent/tweet?text=" + encodeURI(webtitle + ' ' + weblink) );
+
+    //LinkedIn
+    $('#li').attr('href',"http://www.linkedin.com/shareArticle?mini=true&url=" + encodeURI(weblink) + "&title=" + encodeURI(webtitle))
+
+    $('#mail').attr('href',"mailto:?subject="+ encodeURIComponent(webtitle) + "&body=" + encodeURIComponent(weblink) )
+}

@@ -8,7 +8,6 @@
     font-weight: bold;
 }
 .switcher {
-    margin-top:50px;
     float:none;
     width: 100%;
     text-align: center;
@@ -75,7 +74,7 @@
     display: table;
     clear: both;
 }
-#controls:after {
+#app #controls:after {
     content: "";
     display: table;
     clear: both;
@@ -87,3 +86,6 @@
 .select2-container--default .select2-results > .select2-results__options {
     max-height: 450px;
 }
+
+.select2-container--default .select2-selection--multiple .select2-selection__clear{ margin-bottom: 5px; }
+

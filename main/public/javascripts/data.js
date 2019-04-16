@@ -58,7 +58,7 @@ function queryddl_methods() {
 
 function retrieveInterindex(req) {
     return {
-        url: "/",
+        url: "/prisma",
         data: {
             id: 'queryInterindex',
             query: {

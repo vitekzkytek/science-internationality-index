@@ -10,7 +10,7 @@ var lc_color = ["#3366cc", "#dc3912", "#ff9900", "#109618", "#990099", '#A0522D'
                 "#994499", "#aaaa11", "#6633cc", "#e67300", "#8b0707", "#651067", "#329262", "#5574a6", "#3b3eac"];
 
 function generateCharts(selector) {
-    $(selector).append($('<div />', {id:'chartCont',style:`width:${sizes.chart.width + sizes.legend.width}px;`}));
+    $(selector).append($('<div />', {id:'chartCont',style:`width:${sizes.chart.width + sizes.legend.width}px;top:${sizes.header.height};left:${sizes.chart.left}`}));
     genTitle(selector + ' #chartCont');
     genLineChart(selector + ' #chartCont');
 }
@@ -30,7 +30,8 @@ function setSizes() {
     var legendWidth = 200;
     var footHeight = 50;
     var headHeight = 140;
-    var titleHeight = (window.innerHeight * 0.05 + 12) * 1.36 + 10; // 1.36 vychazi jako line-height; zavorka je font-size; zbytek je margin-bottom
+    var titleHeight = (window.innerHeight * 0.05 + 12) * 1.36 + 10; //
+    var boxwidth = 550;
     return {
         header:{
             width: totalWidth,
@@ -46,13 +47,15 @@ function setSizes() {
         chart: {
             width: totalWidth - legendWidth,
             height: totalHeight - footHeight - headHeight - titleHeight,
-            margin: {top:20,right:20,bottom:30,left:60}
+            margin: {top:20,right:20,bottom:30,left:60},
+            left:Math.max(($(window).width() - totalWidth - boxwidth) / 2,10)
         },
         foot: {
             width: totalWidth,
             height: footHeight
         },
-        legend:{width:legendWidth}
+        legend:{width:legendWidth},
+        boxwidth:boxwidth
     }
 }
 function genLineChart(selector) {
@@ -134,7 +137,7 @@ function genLineChart(selector) {
         .attr('xlink:href','img/g_z_cdy.JPG')
         // .attr('x',-40)
         // .attr('y',lc_y(.5))
-        .attr('width',50)
+        .attr('width',60)
         .attr('height',50);
 
 
@@ -157,6 +160,7 @@ function updLineChart() {
     var rank = 0;
 
     updTitle('#appCont #lineChartTitle h4');
+    updFooter('#appCont #LineChartFooter');
     let reqproms = [];
     for (var i in reqs) {
         reqproms.push({promise:getLinePromise(reqs[i],i),request:reqs[i],multikey:mult});
@@ -182,7 +186,9 @@ function updLineChart() {
             currentData[argId] = args[i][0].data;
         }
         DrawSortedLegend(args,reqproms,reqproms[0].multikey,anyFaded)
-    })
+    });
+
+
 }
 
 function DrawSortedLegend(args,reqproms,multikey,anyFaded) {
@@ -396,13 +402,13 @@ function updTitle(selector) {
 
     switch (multipurpose) {
         case 'countries':
-            s = `Globalization of science: ${fields[0].text} by ${methods[0].text}`;
+            s = `Globalization of science: ${fields[0].text}`;// by ${methods[0].text}`;
             break;
         case 'fields':
-            s = `Globalization of science: ${countries[0].text} by ${methods[0].text}`;
+            s = `Globalization of science: ${countries[0].text}`;// by ${methods[0].text}`;
             break;
         case 'methods':
-            s = `Globalization of science: ${countries[0].text} in ${fields[0].text}`;
+            s = `Globalization of science: ${countries[0].text}`;// in ${fields[0].text}`;
             break;
     }
     $(selector).text(s)
@@ -414,20 +420,24 @@ function genTitle(selector) {
 
     updTitle(selector + ' #lineChartTitle h4');
     $(selector + ' #lineChartTitle h4').css('width', sizes.title.width + 'px');
-    // $(selector + ' #lineChartTitle h4').css('height', sizes.title.height + 'px');
-    // $(selector + ' #lineChartTitle h4').css('margin-left', (sizes.title.width/2)*-1 + 'px');
-    //    width:1000px;
-    //     margin-left: -500px;
-
 }
 
 function genFooter(selector) {
     $(selector).append($('<div />', {id:'LineChartFooter'}));
+    updFooter(selector + ' #LineChartFooter');
+}
+
+function updFooter(selector) {
+    $(selector).empty();
+
     s = 'Note: 0 and 1 refer to minimum and maximum of the indicator across all <a class="modalLink" onclick="showModal(\'modCountries\')">countries</a> ' +
         '(or <a class="modalLink" onclick="showModal(\'modCountryGroups\')">country groups</a>),' +
-        ' <a class="modalLink" onclick="showModal(\'modDisciplines\')">disciplines</a> and years. ' +
-        'Source: <a class="modalLink" onclick="showModal(\'modScopus\')">Scopus</a> ';
-    $(selector + ' #lineChartFooter').append('<p>'+ s +'</p>');
+        ' <a class="modalLink" onclick="showModal(\'modDisciplines\')">disciplines</a> and years; ' +
+        'based on ' + $('#ddl_methods select').select2('data')[0].text +
+        '; Source: <a class="modalLink" onclick="showModal(\'modScopus\')">Scopus</a>';
+    $(selector).append('<p>'+ s +'</p>');
+
+
     MathJax.Hub.Queue(["Typeset",MathJax.Hub,"LineChartFooter"]);
 
 }
